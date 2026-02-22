@@ -3,13 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Træningsugeplan</title>
-<meta name="theme-color" content="#0d0d0d">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Traening">
-<link rel="manifest" id="manifestLink">
+<title>FORM — Ugeplan</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -160,13 +154,6 @@ header{
 .dp-sel{background:var(--bg);border:1px solid var(--bd);color:var(--tx);font-family:var(--fb);font-size:.82rem;padding:.62rem .8rem;outline:none;width:100%;transition:border-color .15s;-webkit-appearance:none;appearance:none;}
 .dp-sel:focus{border-color:var(--ac);}
 .dp-sel option{background:#111;}
-.dp-explain{background:var(--bg);border:1px solid var(--bd);border-left:3px solid var(--ac);padding:1rem 1.1rem;margin-bottom:1.5rem;font-size:.75rem;color:var(--mu);line-height:1.75;}
-.dp-explain strong{color:var(--tx);font-weight:400;}
-.dp-explain-title{font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ac);margin-bottom:.45rem;}
-.dp-explain-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-top:.75rem;}
-.dp-explain-item{background:var(--s1);border:1px solid var(--bd);padding:.7rem .8rem;}
-.dp-explain-item-label{font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mu);margin-bottom:.2rem;}
-.dp-explain-item-val{font-size:.73rem;color:var(--tx);line-height:1.5;}
 .ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(225px,1fr));gap:.85rem;}
 .ex-tile{background:var(--bg);border:1px solid var(--bd);overflow:hidden;cursor:pointer;transition:border-color .18s,transform .18s;}
 .ex-tile:hover{border-color:var(--ac);transform:translateY(-2px);}
@@ -271,7 +258,7 @@ header{
 <body>
 
 <header>
-  <div class="logo" style="font-size:1.15rem;letter-spacing:.08em">TRÆNINGSUGEPLAN</div>
+  <div class="logo">FORM</div>
   <div class="hdr-mid" id="hdrDots"></div>
   <div class="hdr-right">
     <button class="hdr-btn" id="btnRediger" onclick="openEdit()">Rediger ✎</button>
@@ -523,74 +510,6 @@ const SPORT_EX={
   golf:['corerotation','plank','rdl','hipthrust','lunge','row','gobletSquat'],
   andet:['squat','deadlift','benchpress','row','plank','lunge','hipthrust','ohp'],
 };
-
-
-const SPLIT_EXPLAIN={
-  fullbody:{
-    hvad:'Du træner hele kroppen i én session — underkrop, overkrop og core.',
-    hvorfor:'Perfekt ved 2–3 træningsdage om ugen. Hver muskelgruppe stimuleres hyppigt, hvilket giver hurtig fremgang for alle niveauer.',
-    struktur:'Start med tunge compound-løft (squat, dødløft), dernæst pres og træk, slut med core og accessory.',
-    intensitet:'Moderat til høj — hold 1–2 reps i reserve på de tunge løft. Pauser: 90–120 sek.',
-  },
-  upper:{
-    hvad:'Du fokuserer udelukkende på overkrop — bryst, ryg, skuldre og arme.',
-    hvorfor:'Overkrop/underkrop-split giver god balance og tilstrækkelig restitution. Ideel ved 4 træningsdage om ugen.',
-    struktur:'Balancér pres og træk 1:1 (f.eks. bænkpres + rows) for at beskytte skuldrene på lang sigt.',
-    intensitet:'Høj intensitet er mulig — overkrop restituerer hurtigere end underkrop. Pauser: 60–90 sek.',
-  },
-  lower:{
-    hvad:'Du fokuserer udelukkende på underkrop — quads, glutes, hamstrings og kalve.',
-    hvorfor:'Tung underkropstræning kræver sin egen dag. Du rammer disse muskelgrupper med fuld energi og maksimal volumen.',
-    struktur:'Start med det tungeste compound-løft (squat eller dødløft) mens du er frisk. Single-leg arbejde bagefter.',
-    intensitet:'Underkrop er krævende — hold teknikken skarp og undgå at gå til failure på squat. Pauser: 2–3 min.',
-  },
-  push:{
-    hvad:'Push-dag: alle muskler der presser væk fra kroppen — bryst, skuldre og triceps.',
-    hvorfor:'Push/Pull/Legs er en af de mest effektive splits. Musklerne arbejder synergistisk og har 48–72 timer til restitution.',
-    struktur:'Bænkpres → skulderøvelse → incline press → triceps. Udtøm pressing-musklerne fuldt ud.',
-    intensitet:'Høj intensitet — musklerne bruges ikke igen i 48–72 timer, så du kan presse dem hårdt.',
-  },
-  pull:{
-    hvad:'Pull-dag: alle muskler der trækker mod kroppen — ryg og biceps.',
-    hvorfor:'Trækøvelser afbalancerer push-dagen og er afgørende for god holdning og skuldersundhed.',
-    struktur:'Pull-ups eller rows som primære løft, biceps som sekundært. Sæt altid skulderblad inden du trækker.',
-    intensitet:'Moderat til høj — fokus på at mærke rygmusklen arbejde, ikke kun armene. Pauser: 60–90 sek.',
-  },
-  legs:{
-    hvad:'Bendag med fuld fokus på quads, glutes, hamstrings og kalve.',
-    hvorfor:'I PPL-split får benene sin fulde opmærksomhed og tilstrækkelig restitution fra de andre dage.',
-    struktur:'Squat eller dødløft som primære løft, efterfulgt af single-leg arbejde og isolationsøvelser.',
-    intensitet:'Meget krævende — sørg for at du er veludhvilet og har spist tilstrækkeligt inden sessionen. Pauser: 2–3 min.',
-  },
-};
-
-function buildSplitExplanation(splitType, sports, gymPos, gymTotal){
-  const ex=SPLIT_EXPLAIN[splitType];
-  if(!ex)return'';
-  const SL={fullbody:'Fullbody',upper:'Overkrop',lower:'Underkrop',push:'Push',pull:'Pull',legs:'Legs'};
-  const expLbl={beginner:'Begynder',intermediate:'Øvet',advanced:'Erfaren'};
-  const goalLbl={performance:'Sportspræstation',strength:'Generel styrke',muscle:'Muskelmasse',health:'Sundhed'};
-  const sNames=[...new Set(sports.map(s=>{const a=ACTS.find(x=>x.id===s);return a?a.l:s;}))];
-  const sportLine=sNames.length
-    ?`<div style="margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--bd);font-size:.73rem;color:var(--mu)">
-        <strong style="color:var(--ac3)">Sport-tilpasning:</strong> Øvelserne er valgt med særligt fokus på ${sNames.join(' og ')} — bevægelsesmønstre og muskler der har størst direkte overføring til din sport.
-      </div>` :'';
-  return`<div class="dp-explain">
-    <div class="dp-explain-title">${SL[splitType]} — Session ${gymPos} af ${gymTotal} · ${expLbl[P.exp]} · ${goalLbl[P.goal]}</div>
-    <strong>${ex.hvad}</strong> ${ex.hvorfor}
-    <div class="dp-explain-grid">
-      <div class="dp-explain-item">
-        <div class="dp-explain-item-label">Sessionsstruktur</div>
-        <div class="dp-explain-item-val">${ex.struktur}</div>
-      </div>
-      <div class="dp-explain-item">
-        <div class="dp-explain-item-label">Intensitet & pauser</div>
-        <div class="dp-explain-item-val">${ex.intensitet}</div>
-      </div>
-    </div>
-    ${sportLine}
-  </div>`;
-}
 
 const SPORT_TIPS={
   padel:['Rotationsstyrke fra core overføres direkte til slagkraft og kontrol','Eksplosiv enkeltbens-stabilitet er nøglen til hurtigt positionsspil','Excentrisk hamstring-styrke reducerer skaderisikoen markant','Lateral bevægelse kræver stærke glutes og abduktorer'],
@@ -916,12 +835,6 @@ function openGymDetail(i) {
   </div>`;
 
   renderExGrid(d.exercises, `exGrid${i}`);
-  // Insert explanation after rendering
-  const explainEl = document.createElement('div');
-  const sActs = [...new Set(weekPlan.filter(d=>d&&d.type==='sport').map(d=>d.activity))];
-  explainEl.innerHTML = buildSplitExplanation(d.splitType, sActs, d.gymPos, d.gymTotal);
-  const exGrid = document.getElementById(`exGrid${i}`);
-  exGrid.parentNode.insertBefore(explainEl.firstElementChild, exGrid);
   panel.style.display = 'block';
   panel.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -935,14 +848,6 @@ function onSplitChange(i) {
   const focus = splitFocus(split);
   document.querySelector('.dp-tags').innerHTML = focus.map(f => `<span class="dp-tag">${f}</span>`).join('');
   renderExGrid(generatedPlan[i].exercises, `exGrid${i}`);
-  // Refresh explanation
-  const old = document.querySelector('.dp-explain');
-  if (old) {
-    const d = generatedPlan[i];
-    const tmp = document.createElement('div');
-    tmp.innerHTML = buildSplitExplanation(split, sActs, d.gymPos, d.gymTotal);
-    old.replaceWith(tmp.firstElementChild);
-  }
 }
 
 function onSplitCycle(i) {
@@ -1171,39 +1076,56 @@ function splitFocus(type) {
 function buildEx(splitType, sports, timeMin, gymPos) {
   const exCount = timeMin <= 30 ? 4 : timeMin <= 45 ? 5 : timeMin <= 60 ? 6 : timeMin <= 75 ? 7 : 8;
   const focus   = splitFocus(splitType);
+  const pos     = (gymPos || 1) - 1; // 0-indexed day position for rotation
+
   const compat  = Object.keys(EX).filter(k => {
     const e = EX[k];
     return !e.equip || e.equip.length === 0 || e.equip.some(q => P.equip.includes(q));
   });
+
+  // Build sport-relevant pool
   const pool = new Set();
   sports.forEach(s => { (SPORT_EX[s]||[]).forEach(e => { if (compat.includes(e)) pool.add(e); }); });
   if (pool.size === 0) compat.forEach(e => pool.add(e));
 
-  // Score all exercises
-  const scored = [...pool].map(k => {
-    const e   = EX[k];
-    const ovl = e.muscles.filter(m => focus.some(f =>
-      m.toLowerCase().includes(f.toLowerCase()) || f.toLowerCase().includes(m.toLowerCase())
-    )).length;
-    const sBonus = sports.some(s => (SPORT_EX[s]||[]).includes(k)) ? 1 : 0;
-    const pBonus = e.cat === 'Power' && P.goal === 'performance' ? .5 : 0;
-    return { k, score: ovl*2 + sBonus + pBonus };
-  }).sort((a,b) => b.score - a.score);
+  // ── ANCHOR EXERCISE ──────────────────────────────────────────────
+  // Each gym day gets a different "anchor" big compound lift as its
+  // first exercise, rotating through the available heavy lifts.
+  // This guarantees variety: Day 1=squat, Day 2=deadlift, Day 3=benchpress
+  const anchors = ['squat','deadlift','benchpress','ohp','rdl','row','hipthrust'].filter(k =>
+    compat.includes(k) && pool.has(k)
+  );
+  // Fallback: any compound from pool
+  const allCompounds = [...pool].filter(k => EX[k] && EX[k].cat === 'Compound');
+  const anchorPool   = anchors.length >= 2 ? anchors : allCompounds;
+  const anchor       = anchorPool[pos % anchorPool.length] || null;
 
-  // Split into compound vs accessory groups, then rotate each group
-  // based on gym day position so each session gets different exercises
-  const pos = (gymPos || 1) - 1;
-  const compounds   = scored.filter(x => EX[x.k].cat === 'Compound' || EX[x.k].cat === 'Power');
-  const accessories = scored.filter(x => EX[x.k].cat !== 'Compound' && EX[x.k].cat !== 'Power');
-  const rotate = (arr, n) => [...arr.slice(n % arr.length), ...arr.slice(0, n % arr.length)];
-  const rotated = [...rotate(compounds, pos), ...rotate(accessories, pos)];
+  // ── SCORE remaining exercises ─────────────────────────────────────
+  const scored = [...pool]
+    .filter(k => k !== anchor) // anchor is already locked in
+    .map(k => {
+      const e   = EX[k];
+      const ovl = e.muscles.filter(m => focus.some(f =>
+        m.toLowerCase().includes(f.toLowerCase()) || f.toLowerCase().includes(m.toLowerCase())
+      )).length;
+      const sBonus  = sports.some(s => (SPORT_EX[s]||[]).includes(k)) ? 1 : 0;
+      const pBonus  = e.cat === 'Power' && P.goal === 'performance' ? .5 : 0;
+      // Variation offset: shift score slightly per gym day so ranking order changes
+      // Uses prime numbers to avoid patterns repeating on day 1 vs day 4
+      const primes  = [7, 11, 13, 17, 19, 23];
+      const vOffset = (k.charCodeAt(0) + pos * primes[pos % primes.length]) % 3 * 0.2;
+      return { k, score: ovl*2 + sBonus + pBonus + vOffset };
+    })
+    .sort((a,b) => b.score - a.score);
 
-  const picked = [];
-  for (const {k} of rotated) {
+  // ── PICK exercises ────────────────────────────────────────────────
+  const picked = anchor ? [anchor] : [];
+  for (const {k} of scored) {
     if (picked.length >= exCount) break;
-    const catC = picked.filter(p => EX[p].cat === EX[k].cat).length;
+    const catC = picked.filter(p => EX[p] && EX[p].cat === EX[k].cat).length;
     if (catC < 2) picked.push(k);
   }
+  // Fill up if still short
   for (const k of [...pool]) {
     if (picked.length >= exCount) break;
     if (!picked.includes(k)) picked.push(k);
@@ -1233,67 +1155,5 @@ function weightRec(key) {
   };
 }
 </script>
-
-<script>
-// PWA: Inline Manifest
-const manifestData = {
-  name: 'Traeningsugeplan',
-  short_name: 'Traening',
-  description: 'Personlig ugentlig traeningsplan',
-  start_url: '.',
-  display: 'standalone',
-  background_color: '#0d0d0d',
-  theme_color: '#0d0d0d',
-  orientation: 'portrait-primary',
-  icons: [{
-    src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230d0d0d'/><text x='96' y='130' font-size='110' text-anchor='middle' fill='%23d4f53c'>%F0%9F%8F%8B</text></svg>",
-    sizes: '192x192', type: 'image/svg+xml'
-  }]
-};
-const mBlob = new Blob([JSON.stringify(manifestData)], {type:'application/json'});
-document.getElementById('manifestLink').href = URL.createObjectURL(mBlob);
-
-// PWA: Service Worker
-if ('serviceWorker' in navigator) {
-  const sw = `
-    const CACHE = 'traening-v1';
-    self.addEventListener('install', e => { self.skipWaiting(); });
-    self.addEventListener('activate', e => { self.clients.claim(); });
-    self.addEventListener('fetch', e => {
-      e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
-    });
-  `;
-  const swURL = URL.createObjectURL(new Blob([sw], {type:'text/javascript'}));
-  navigator.serviceWorker.register(swURL).catch(()=>{});
-}
-
-// PWA: Install banner
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  if (!document.getElementById('installBanner')) {
-    const b = document.createElement('div');
-    b.id = 'installBanner';
-    b.style.cssText = 'position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%);background:#1e1e1e;border:1px solid #d4f53c;padding:.7rem 1.1rem;display:flex;align-items:center;gap:.85rem;z-index:9999;font-family:sans-serif;font-size:.74rem;color:#f0ede8;width:90%;max-width:380px;box-shadow:0 8px 32px rgba(0,0,0,.6)';
-    b.innerHTML = '<span>&#128242; Tilfoej til startskjaerm</span><button onclick="installApp()" style="background:#d4f53c;color:#0d0d0d;border:none;font-weight:500;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.4rem .85rem;cursor:pointer">Installér</button><button onclick="this.parentNode.remove()" style="background:none;border:none;color:#6b6b6b;cursor:pointer;font-size:1rem">&#10005;</button>';
-    document.body.appendChild(b);
-  }
-});
-function installApp(){
-  if(!deferredPrompt)return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(()=>{
-    deferredPrompt=null;
-    const b=document.getElementById('installBanner');
-    if(b)b.remove();
-  });
-}
-window.addEventListener('appinstalled',()=>{
-  const b=document.getElementById('installBanner');
-  if(b)b.remove();
-});
-</script>
-
 </body>
 </html>
